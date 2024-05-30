@@ -1,15 +1,8 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../types';
+import { ResultScreenProps } from '../types';
 
-type ResultScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Result'>;
-
-type Props = {
-  navigation: ResultScreenNavigationProp;
-};
-
-const ResultScreen: React.FC<Props> = ({ navigation }) => {
+const ResultScreen: React.FC<ResultScreenProps> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text>Profil Produk</Text>

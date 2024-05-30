@@ -1,25 +1,30 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
-import HomeScreen from './screens/HomeScreen';
-// import LoginScreen from './screens/LoginScreen';
-import CameraScreen from './screens/CameraScreen';
-import AnalysisScreen from './screens/AnalysisScreen';
+import Navigation from './Navigation';
+import * as SplashScreen from 'expo-splash-screen';
 
-const Stack = createStackNavigator();
+SplashScreen.preventAutoHideAsync(); // Mencegah splash screen secara otomatis menghilang
 
 const App: React.FC = () => {
+  useEffect(() => {
+    const prepare = async () => {
+      try {
+        // Simulate loading or other async tasks
+        await new Promise(resolve => setTimeout(resolve, 2000)); // Simulasi 2 detik
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        SplashScreen.hideAsync(); // Sembunyikan splash screen
+      }
+    };
+
+    prepare();
+  }, []);
+
   return (
-    <NavigationContainer>
-      <View style={styles.container}>
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="Home" options={{ headerTitle: '', headerShown: false }} component={HomeScreen} />
-          <Stack.Screen name="Camera" component={CameraScreen} />
-          <Stack.Screen name="Analysis" component={AnalysisScreen} initialParams={{ photoUri: 'your_photo_uri_here' }} />
-        </Stack.Navigator>
-      </View>
-    </NavigationContainer>
+    <View style={styles.container}>
+      <Navigation />
+    </View>
   );
 };
 

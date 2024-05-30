@@ -1,37 +1,62 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
-import { HomeScreenProps } from '../types';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions, Platform } from 'react-native';
+import { Camera } from 'expo-camera'; // Import Camera from expo-camera
+import { CameraPermissionScreenProps } from '../types';
 
-const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
+const CameraPermissionScreen: React.FC<CameraPermissionScreenProps> = ({ navigation }) => {
   const { width } = Dimensions.get('window');
   const mobileWidth = 375; // Fixed width for mobile layout
+
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const requestCameraPermission = async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await Camera.requestCameraPermissionsAsync();
+        setHasPermission(status === 'granted');
+      } else {
+        setHasPermission(true); // Web doesn't need explicit camera permission handling
+      }
+    };
+
+    requestCameraPermission();
+  }, []);
+
+  const handleStartCamera = () => {
+    if (hasPermission) {
+      navigation.navigate('Camera'); // Navigate to CameraScreen after permission granted
+    }
+  };
 
   return (
     <View style={styles.outerContainer}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Image
-            source={require('../../assets/images/bgLogin.png')}
+            source={require('../../assets/images/bgIzinCamera.png')}
             style={styles.logo}
           />
         </View>
         <View style={styles.separator} />
         <View style={styles.content}>
-          <Image
+          {/* <Image
             source={require('../../assets/images/logo_text.png')}
             style={styles.logoText}
-          />
-          <Text style={styles.welcomeText}>Selamat Datang</Text>
+          /> */}
+          <Text style={styles.welcomeText}>Akses Kamera</Text>
           <Text style={styles.descriptionText}>
-            hanya perlu gunakan kamera pada smartphone kamu arahkan dan capture
+            aplikasi kami membutuhkan akses kamera untuk dapat digunakan secara optimal
           </Text>
           <View style={styles.indicatorContainer}>
+            <View style={styles.indicator} />
             <View style={[styles.indicator, styles.activeIndicator]} />
             <View style={styles.indicator} />
-            <View style={styles.indicator} />
           </View>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('CameraPermission')}>
-            <Text style={styles.buttonText}>Ayo Mulai</Text>
+          <TouchableOpacity style={styles.button} onPress={handleStartCamera}>
+            <Text style={styles.buttonText}>Izin akses kamera</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonCancel} onPress={() => navigation.navigate('Home')}>
+            <Text style={styles.buttonText}>Kembali</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -119,6 +144,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width:"100%"
   },
+  buttonCancel: {
+    backgroundColor: 'red',
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    borderRadius: 5,
+    marginTop:10,
+    width:"100%"
+  },
   buttonText: {
     color: '#fff',
     fontSize: 16,
@@ -127,4 +160,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default CameraPermissionScreen;
