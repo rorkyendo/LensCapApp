@@ -1,5 +1,4 @@
-import 'expo-router/entry';
 import { registerRootComponent } from 'expo';
-import App from './App';
+import Navigation from './Navigation'; // Sesuaikan path import dengan lokasi file Navigation.tsx
 
-registerRootComponent(App);
+registerRootComponent(Navigation); // Render Navigation.tsx sebagai komponen utama

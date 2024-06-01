@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { HomeScreenProps } from '../types';
 
-const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
+const Home: React.FC<HomeScreenProps> = ({ navigation }) => {
   const { width } = Dimensions.get('window');
   const mobileWidth = 375; // Fixed width for mobile layout
 
@@ -127,4 +127,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default Home;

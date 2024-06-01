@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Platform, Image } from 'react-native';
 import Webcam from 'react-webcam';
 import { Chase } from 'react-native-animated-spinkit';
-import ResultScreen from './ResultScreen';
 
 interface CameraScreenProps {
   navigation: any; // Gantilah dengan tipe yang lebih spesifik jika Anda memiliki tipe untuk navigation
@@ -34,14 +33,14 @@ const CameraComponent: React.FC<CameraComponentProps> = ({ hasPhoto, webcamRef, 
           </TouchableOpacity>
         </View>
       ) : (
-        <View style={styles.cameraContainer}>
-          <Image source={{ uri: hasPhoto }} style={styles.camera} />
-          <TouchableOpacity style={styles.button} onPress={process}>
-            <Text style={styles.buttonText}>Process</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonRemove} onPress={handleCapture}>
-            <Text style={styles.buttonText}>Re Capture</Text>
-          </TouchableOpacity>
+          <View style={styles.cameraContainer}>
+            <Image source={{ uri: hasPhoto }} style={styles.camera} />
+            <TouchableOpacity style={styles.button} onPress={process}>
+              <Text style={styles.buttonText}>Process</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonRemove} onPress={handleCapture}>
+              <Text style={styles.buttonText}>Re Capture</Text>
+            </TouchableOpacity>
         </View>
       )}
     </View>
@@ -161,7 +160,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '80%',
+    width: '25%',
   },
   button: {
     backgroundColor: '#007AFF',

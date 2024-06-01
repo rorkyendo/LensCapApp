@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Linking } from 'react-native';
-import { WebView } from 'react-native-webview';
 import { ResultScreenProps } from '../types';
 
 const ResultScreen: React.FC<ResultScreenProps> = ({ route }) => {
