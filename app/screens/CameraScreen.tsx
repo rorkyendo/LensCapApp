@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Platform, Image } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Platform, Image, Dimensions } from 'react-native';
 import Webcam from 'react-webcam';
 import { Chase } from 'react-native-animated-spinkit';
 
@@ -122,7 +122,7 @@ const CameraScreen: React.FC<CameraScreenProps> = ({ navigation }) => {
         if (result.status === 200) {
           setClassName(result.data.class_name as string);
           setConfidence(result.data.confidence as string);
-          navigation.navigate('Result', { className: result.data.class_name, confidence: result.data.confidence });
+          navigation.navigate('Result', { className: result.data.class_name, confidence: result.data.confidence, hasPhoto:hasPhoto });
           // alert("Foto berhasil di proses");
         } else {
           // alert("Foto gagal di proses");
@@ -150,6 +150,7 @@ const CameraScreen: React.FC<CameraScreenProps> = ({ navigation }) => {
   );
 };
 
+const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -160,7 +161,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '25%',
+    width: width/1.2,
   },
   button: {
     backgroundColor: '#007AFF',

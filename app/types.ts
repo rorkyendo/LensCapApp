@@ -1,10 +1,11 @@
 import { StackScreenProps } from '@react-navigation/stack';
+import { Float } from 'react-native/Libraries/Types/CodegenTypes';
 
 export type RootStackParamList = {
   Home: undefined;
   CameraPermission: undefined; // Update type for CameraPermission
   Camera: undefined;
-  Result: { className: string; confidence: string }; // Perbarui ini
+  Result: { className: string; confidence: Float; hasPhoto: string; }; // Perbarui ini
 };
 
 export type HomeScreenProps = StackScreenProps<RootStackParamList, 'Home'>;
